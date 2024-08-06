@@ -10,7 +10,9 @@ This is the final project for the APIs course which is a part of the Meta Backen
 ### User registration and token generation
 | Endpoint | Role  | Method | Purpose |
 |----------|-------|--------|---------|
-|/api/users| No role | POST |Creates a new user with name, email, password|
+|/api/users/| No role | POST |Creates a new user with name, email, password |
+|/auth/users/me/| Has valid username | GET | Display the current user |
+|/auth/token/login/| Has valid email and password | POST | Generate account tokem for user |
 
 ### Menu-items endpoints
 | Endpoint | Role  | Method | Purpose |
