@@ -17,6 +17,16 @@ This is the final project for the APIs course which is a part of the Meta Backen
 ### Menu-items endpoints
 | Endpoint | Role  | Method | Purpose |
 |----------|-------|--------|---------|
+|/api/menu-items| Customer, delivery_crew | GET | List all menu items |
+|/api/menu-items| Customer, delivery_crew | POST, PATCH, PUT, DELETE | Denies access, returns 403 |
+|/api/menu-items/{menuItem} | Customer, delivery_crew | GET | List single menu item |
+|/api/menu-items/{menuItem}| Customer, delivery_crew | POST, PATCH, PUT, DELETE | Denies access, returns 403 |
+|/api/menu-items| manager | GET | List all menu items |
+|/api/menu-items| manager | POST | Create new menu itek, return 201 |
+|/api/menu-items/{menuItem} | manager | GET | List single menu item |
+|/api/menu-items/{menuItem} | manager | PUT, PATCH | Update single menu item |
+|/api/menu-items/{menuItem} | manager | DELETE | Delete single menu item |
+
 
 ### User group management endpoints
 | Endpoint | Role  | Method | Purpose |
