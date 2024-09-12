@@ -1,6 +1,13 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from .models import Category, MenuItem, Cart, Order, OrderItem
+
+# TODO: Serialize the User model so that we can see if the user is a manager or a part of the delivery crew
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']
 
 
 class CategorySerializer(serializers.ModelSerializer):
