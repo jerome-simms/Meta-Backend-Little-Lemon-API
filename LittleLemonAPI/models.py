@@ -41,6 +41,9 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
     date = models.DateField(db_index=True, auto_now_add=True, blank=True)
 
+    class Meta:
+        ordering = ['id']
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)

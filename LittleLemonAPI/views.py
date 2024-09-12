@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from django.core.paginator import Paginator, EmptyPage
 from rest_framework import generics
 from rest_framework import status
 from rest_framework import views
@@ -153,9 +154,17 @@ class OrdersAPIView(views.APIView):
     def get(self, request):
         # check if the request is from a manager, then delivery crew and then customer respectively
         current_user = request.user
+        perpage = request.query_params.get('perpage', 5)
+        page = request.query_params.get('page', 1)
+
         if current_user.groups.filter(name__in=['manager']).exists():
             queryset = Order.objects.all()
-            serializer = OrderSerializer(queryset, many=True)
+            paginator = Paginator(queryset, per_page=perpage)
+            try:
+                items = paginator.page(number=page)
+            except EmptyPage:
+                items = []
+            serializer = OrderSerializer(items, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         elif current_user.groups.filter(name__in=['delivery_crew']).exists():
             # gets all the items assigned to the current user who is a member of the delivery crew
