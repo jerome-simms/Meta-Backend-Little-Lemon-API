@@ -17,14 +17,20 @@ from .serializers import (
     UserSerializer
 )
 
-##################
-# MENU ITEMS VIEWS
-##################
+###############################
+# MENU ITEMS & CATEGORIES VIEWS
+###############################
 
 class MenuItemsListCreateView(generics.ListCreateAPIView):
-    queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
 
+    def get_queryset(self):
+        queryset = MenuItem.objects.all()
+        category = self.request.query_params.get('category')
+        if category:
+            queryset = queryset.filter(category__name=category)
+        return queryset
+    
     def get_permissions(self):
         if self.request.method == 'GET':
             return []
@@ -39,6 +45,16 @@ class MenuItemsModifyView(generics.RetrieveUpdateDestroyAPIView):
         if self.request.method == 'GET':
             return []
         return [ManagerPermission()]
+    
+class CategoriesListCreateView(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            # Only allow managers to make post requests to this endpoint
+            return [ManagerPermission()]
+        return []
         
 
 #################################

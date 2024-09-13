@@ -6,7 +6,10 @@ from . import views
 urlpatterns = [
     # menu items
     path('menu-items', views.MenuItemsListCreateView.as_view()), 
-    path('menu-items/<int:pk>', views.MenuItemsModifyView.as_view()), 
+    path('menu-items/<int:pk>', views.MenuItemsModifyView.as_view()),
+
+    # categories 
+    path('categories', views.CategoriesListCreateView.as_view()),
 
     # manager views
     # path('groups/manager/users', views.ManagerDeleteView.as_view()), 
